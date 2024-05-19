@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""This module contain the HBNB console"""
-
+"""Defines the HBnB console."""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -104,38 +103,55 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class doesn't exist **")
 
-    def do_update(self, args):
-        """Updates an instance based on the class name and id by adding or
-        updating attribute, saving on JSON file"""
-        arg = args.split()
-        sw = 0
-        if len(arg) < 1:
+    def do_update(self, arg):
+        """Usage: update <class> <id> <attribute_name> <attribute_value> or
+       <class>.update(<id>, <attribute_name>, <attribute_value>) or
+       <class>.update(<id>, <dictionary>)
+        Update a class instance of a given id by adding or updating
+        a given attribute key/value pair or dictionary."""
+        args = parse(arg)
+        objdict = storage.all()
+
+        if len(args) == 0:
             print("** class name missing **")
-        elif arg[0] not in HBNBCommand.class_list:
+            return False
+        if args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-        elif len(arg) < 2:
+            return False
+        if len(args) == 1:
             print("** instance id missing **")
-        elif len(arg) < 3:
+            return False
+        if "{}.{}".format(args[0], args[1]) not in objdict.keys():
+            print("** no instance found **")
+            return False
+        if len(args) == 2:
             print("** attribute name missing **")
-        elif len(arg) < 4:
-            print("** value missing **")
-        else:
-            in_key = (arg[0] + "." + arg[1])
-            for key, obj in storage.all().items():
-                if key == in_key:
-                    idx_arg = len(arg[0]) + len(arg[1]) + len(arg[2]) + 3
-                    value = args[idx_arg:]
-                    if args[idx_arg] == "\"":
-                        idx_arg += 1
-                        value = args[idx_arg:-1]
-                    if hasattr(obj, arg[2]):
-                        value = type(getattr(obj, arg[2]))(args[idx_arg:])
-                    setattr(obj, arg[2], value)
-                    sw = 1
-                    storage.save()
-            if sw == 0:
-                print("** no instance found **")
-                return -1
+            return False
+        if len(args) == 3:
+            try:
+                type(eval(args[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
+
+        if len(args) == 4:
+            obj = objdict["{}.{}".format(args[0], args[1])]
+            if args[2] in obj.__class__.__dict__.keys():
+                valtype = type(obj.__class__.__dict__[args[2]])
+                obj.__dict__[args[2]] = valtype(args[3])
+            else:
+                obj.__dict__[args[2]] = args[3]
+        elif type(eval(args[2])) == dict:
+            obj = objdict["{}.{}".format(argl[0], argl[1])]
+            for k, v in eval(args[2]).items():
+                if (k in obj.__class__.__dict__.keys() and
+                        type(obj.__class__.__dict__[k]) in {str, int, float}):
+                    valtype = type(obj.__class__.__dict__[k])
+                    obj.__dict__[k] = valtype(v)
+                else:
+                    obj.__dict__[k] = v
+        storage.save()
+
 
     def default(self, args):
         """default method that perfom actions when no command it's given"""
