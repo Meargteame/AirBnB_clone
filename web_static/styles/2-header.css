@@ -1,8 +1,7 @@
-    header {
-      background-color: red;
-      height: 70px;
-      width: 100%;
-      color: white;
-      border-bottom: 1px #ccc;
-    }
-    /* logo align on left and center vertically (20px space at the left) */
+header {
+  background-color: red;
+  height: 70px;
+  width: 100%;
+  color: white;
+  border-bottom: 1px #ccc;
+}
