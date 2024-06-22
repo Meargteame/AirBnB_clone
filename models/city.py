@@ -1,12 +1,13 @@
-#!/usr/bin/python3
-"""This file contain the class City"""
-
-from models.base_model import BaseModel
+from base_model import BaseModel
 
 
 class City(BaseModel):
     """
-    City class that inherits from BaseModel class
+    Public class attributes:
+    state_id: string - empty string: it will be the State.id
+    name: string - empty string
     """
-    state_id = ""
-    name = ""
+
+    state_id: str = ''
+    name: str = ''
+

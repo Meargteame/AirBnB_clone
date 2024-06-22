@@ -1,7 +1,7 @@
-#!/usr/bin/python3
-"""__init__ magic method for models directory"""
+print("before filestorage")
 from models.engine.file_storage import FileStorage
-
-
+print("Just after this,  the filestorage import")
 storage = FileStorage()
 storage.reload()
+
+
