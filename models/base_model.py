@@ -1,40 +1,48 @@
-#!/usr/bin/env python3
-import uuid 
-from datetime import datetime 
+import uuid
+from datetime import datetime
+
+
 class BaseModel:
-    def __init__(self,**kwargs):
-        if not id: 
-            self.id = uuid.uuid4().hex
-            self.created_at =str(datetime.now().isoformat())
-            self.updated_at =self.created_at
-        
+    """BaseModel class for creating and managing instances.
+    """
+    TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
+
+    def __init__(self, **kwargs):
+        """Initialize a new instance of BaseModel.
+            - **kwargs: a dictionary of key-values arguments
+        """
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    if key in ["created_at", "updated_at"]:
+                        value = datetime.strptime(value, self.TIME_FORMAT)
+                    setattr(self, key, value)
         else:
-            self.id = id 
-            self.created_at =str(datetime.now().isoformat())
-            self.updated_at =self.created_at
-            
-            
-        for key, value in kwargs.items():
-            self.__dict__[key] = value
-        
-    def __str__(self):
-        return f"{self.id},{self.created_at},{self.updated_at}"
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+
+    def __str__(self) -> str:
+        """Return a string representation of the instance."""
+        class_name = self.__class__.__name__
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+
     def save(self):
-        self.updated_at =str(datetime.now().isoformat())
-    def to_dict(self):
-        dict_rep = self.__dict__.copy()
-        dict_rep['__class__'] = self.__class__.__name__ 
-        return dict_rep
-
-# serialization 
-# changing one object to another one representation of something
-# object -> dictionary ->  dump in to json file 
+        """Update the updated_at attribute and save the instance."""
+        print("just inside basemodel save")
+        import models
+        self.updated_at = datetime.now()
+        models.storage.new(self)
+        models.storage.save_obj()
 
 
-# if '__name__' == '__main__':
-#     person_dict = {'name':'Meareg','field':'Software Engineer'}
-#     base_1 = BaseModel(**person_dict)
-#     base_2 = BaseModel('423423423423')
-#     base_3 = BaseModel(name='Abebe',field='SE')
+    def to_dict(self) -> dict:
+        """Return a dictionary of instance attributes."""
+        obj_dict = self.__dict__.copy()
+        obj_dict['__class__'] = self.__class__.__name__
 
+        for k, v in obj_dict.items():
+            if isinstance(v, datetime):
+                obj_dict[k] = v.isoformat()
 
+        return obj_dict
