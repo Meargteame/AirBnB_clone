@@ -1,55 +1,37 @@
-#!/usr/bin/python3
-"""Module that contain FileStorage class"""
+import json 
 
-from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.review import Review
-import os.path
-import json
-
-
+from base_model import BaseModel
 class FileStorage():
-    """
-    FileStorage Class that performs actions
-    within objects created and json file
-    """
-
-    __file_path = "file.json"
-    __objects = {}
-
-    def all(self):
-        """all method returns the __objects dictionary"""
-        return FileStorage.__objects
-
-    def new(self, obj):
-        """
-        new method update __objects dictionary
-        each time that a new object is created
-        """
-        if obj:
-            key = type(obj).__name__ + "." + obj.id
-            FileStorage.__objects[key] = obj
-
+    def __init__(self):
+        self.__fileName = 'JsonData.json'
+        self.__objects = {}
+    
     def save(self):
-        """
-        save method that saves all objects inside a file in JSON represetation
-        """
-        d = {}
-        for key, obj in FileStorage.__objects.items():
-            d[key] = obj.to_dict()
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as json_f:
-            json.dump(d, json_f)
+        data_to_write = {}
+        
+        # changing all data in to dict form when we want to save it in to json form and next we will change in to json 
+        for key, values in self.__objects.items():
+            data_to_write[key] = values.to_dict()
+            
+        with open('file.json','w') as file :
+            json.dump(data_to_write,file)
+    def new(self,data):
+        key = f'{data.id} # {data.__class__.__name__}'
+        self.__objects[key] =data 
+        
+    def reload():
+        from  base_model import BaseModel
+        
+        pass 
+    
+    def load():
+        pass 
+    
+    
 
-    def reload(self):
-        """
-        reload method that update __objects dictionary from JSON file
-        """
-        if os.path.isfile(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as js_f:
-                for key, obj in json.loads(js_f.read()).items():
-                    obj = eval(obj['__class__'])(**obj)
-                    FileStorage.__objects[key] = obj
+model = BaseModel()
+storage = FileStorage()
+storage.save()
+# storage.new()
+
+print('Done')

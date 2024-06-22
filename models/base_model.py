@@ -1,43 +1,39 @@
-#!/usr/bin/python3
-
+#!/usr/bin/env python3
 import uuid 
-from datetime import datetime 
-
 
 class BaseModel:
-    """Base class for other models."""
-
-    
-    def __init__(self,*args, **kwargs):
-        """Initialize instance attributes."""
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
-                elif key != '__class__':
-                    setattr(self, key, value)
+    def __init__(self,name='unknown',field=None,id=None,**kwargs):
+        if not id: 
+            self.id = uuid.uuid4().hex
+            self.name = name 
+            self.field= field
         else:
-            self.id = uuid.uuid4()
-            self.created_at = datetime.now()
-            self.updated_at =datetime.now()
-
+            self.id = id 
+            self.name = name 
+            self.field= field
+            
+        for key, value in kwargs.items():
+            self.__dict__[key] = value
+        
     def __str__(self):
-        """Return string representation of the instance."""
-
-        class_name =self.__class__.__name__
-        return f"[{class_name}] ({self.id}) ({self.__dict__})"
-    
-    def save(self):
-        """Update updated_at with the current datetime."""
-        self.updated_at = datetime.now()
-
-
+        return f"The Id of this object is {self.id},{self.name} {self.field}"
     def to_dict(self):
-        """Return dictionary representation of the instance."""
-        to_json =self.__dict__
-        to_json['__class__'] = self.__class__.__name__
-        to_json['created_at'] =self.created_at.isoformat()
-        to_json['updated_at'] =self.updated_at.isoformat()
+        dict_rep = self.__dict__.copy()
+        dict_rep['__class__'] = self.__class__.__name__ 
+        dict_rep['relationship'] = True
+        dict_rep['Marital Status'] = 'Married'
+        return dict_rep
 
-        return to_json
+# serialization 
+# changing one object to another one representation of something
+# object -> dictionary ->  dump in to json file 
+base_1 = BaseModel('Meareg Teame','software Engineer',4343433434)
+print(base_1.to_dict())
+
+if '__name__' == '__main__':
+    person_dict = {'name':'Meareg','field':'Software Engineer'}
+    base_1 = BaseModel(**person_dict)
+    base_2 = BaseModel('423423423423')
+    base_3 = BaseModel(name='Abebe',field='SE')
+
 
