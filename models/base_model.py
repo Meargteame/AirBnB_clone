@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import uuid 
-
+from datetime import datetime 
 class BaseModel:
     def __init__(self,name='unknown',field=None,id=None,**kwargs):
         if not id: 
@@ -9,14 +9,17 @@ class BaseModel:
             self.field= field
         else:
             self.id = id 
-            self.name = name 
-            self.field= field
+            self.created_at =str(datetime.now().isoformat())
+            self.updated_at =self.created_at
+            
             
         for key, value in kwargs.items():
             self.__dict__[key] = value
         
     def __str__(self):
         return f"The Id of this object is {self.id},{self.name} {self.field}"
+    def save(self):
+        self.updated_at =str(datetime.now().isoformat())
     def to_dict(self):
         dict_rep = self.__dict__.copy()
         dict_rep['__class__'] = self.__class__.__name__ 
