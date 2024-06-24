@@ -13,13 +13,14 @@ class BaseModel:
         """Initialize a new instance.
         
         Args:
-            *args: Variable length argument list.
+            *args: Variable length argument list. Not used in this implementation.
             **kwargs: Arbitrary keyword arguments. Used for deserialization.
         """
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
                     setattr(self, key, value)
+            # Convert created_at and updated_at strings to datetime objects
             self.created_at = datetime.fromisoformat(self.created_at)
             self.updated_at = datetime.fromisoformat(self.updated_at)
         else:
@@ -46,3 +47,39 @@ class BaseModel:
         dict_repr['created_at'] = self.created_at.isoformat()
         dict_repr['updated_at'] = self.updated_at.isoformat()
         return dict_repr
+
+    @classmethod
+    def from_dict(cls, dict_obj):
+        """Create an instance from a dictionary representation.
+        
+        Args:
+            dict_obj (dict): Dictionary containing object attributes.
+        
+        Returns:
+            instance: Instance of the class created from dictionary.
+        """
+        return cls(**dict_obj)
+
+# Example usage
+if __name__ == "__main__":
+    my_model = BaseModel()
+    my_model.name = "My_First_Model"
+    my_model.my_number = 89
+    print(my_model.id)
+    print(my_model)
+    print(type(my_model.created_at))
+    print("--")
+    my_model_json = my_model.to_dict()
+    print(my_model_json)
+    print("JSON of my_model:")
+    for key in my_model_json.keys():
+        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
+
+    print("--")
+    my_new_model = BaseModel.from_dict(my_model_json)
+    print(my_new_model.id)
+    print(my_new_model)
+    print(type(my_new_model.created_at))
+
+    print("--")
+    print(my_model is my_new_model)
