@@ -4,7 +4,8 @@ BaseModel module for defining the base class for all models.
 """
 import uuid
 from datetime import datetime
-from models import storage  # Adjust this import based on your actual project structure
+# from .engine.file_storage import storage
+# Adjust this import based on your actual project structure
 
 
 class BaseModel:
@@ -62,3 +63,5 @@ class BaseModel:
             instance: Instance of the class created from dictionary.
         """
         return cls(**dict_obj)
+
+
