@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
         else:
             print("Invalid input format "
-                  "<show class-name xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>")
+                "<show class-name xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx>")
 
 
     def do_delete(self, arg) -> None:
