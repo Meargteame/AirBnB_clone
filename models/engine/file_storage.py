@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 # file_storage.py
-
+from models.base_model import BaseModel
 import json
 print('starting of file storage')
+
 class FileStorage:
+
+    CLASSES = {'BaseModel': BaseModel} 
     __file_path = 'data.json'
     __objects = {}
 
@@ -21,23 +24,14 @@ class FileStorage:
 
         with open(self.__file_path, 'w') as file:
             json.dump(help_obj, file, indent=4)
-            
 
     def reload(self):
-        from  models.base_model import BaseModel
-        
-        CLASSES = {'BaseModel': BaseModel} 
-        
-            
         with open(self.__file_path, 'r') as file:
-                    loaded_data = json.load(file)
+            loaded_data = json.load(file)
+            for key, value in loaded_data.items():
+                class_name = value['__class__']
+                if class_name in self.CLASSES:
+                    instance = self.CLASSES[class_name](**value)
+                    self.__objects[key] = instance
 
-                    for key, value in loaded_data.items():
-                        class_name = value['__class__']
-
-                        if class_name in self.CLASSES:
-                            instance = self.CLASSES[class_name](**value)
-                            self.__objects[key] = instance
-                    
-
-print('ending  of file storage')
+print('ending of file storage')

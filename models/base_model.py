@@ -1,12 +1,9 @@
 #!/usr/bin/env python3
 # base_model.py
-print('starting of the base model class ')
 from uuid import uuid4
 from datetime import datetime
-from models.engine.file_storage import FileStorage
 
-class BaseModel:
-    print('Base Model class started')
+class BaseModel():
     """
     Base model class that defines common attributes/methods for other classes.
 
