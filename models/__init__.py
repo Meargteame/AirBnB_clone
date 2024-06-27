@@ -1,6 +1,11 @@
-#!/usr/bin/env python3 
-# Example of correct indentation
-from engine.file_storage import FileStorage
+'''
+Update `models/__init__.py`: to create a unique `FileStorage` instance for your application
 
-storage = FileStorage()
+- import `file_storage.py`
+- create the variable `storage`, an instance of `FileStorage`
+- call `reload()` method on this variable
+'''
+import file_storage 
+
+storage = file_storage.FileStorage()
 storage.reload()

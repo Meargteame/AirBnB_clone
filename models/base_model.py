@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-
 from uuid import uuid4
 from datetime import datetime
-from . import storage  
+# from . import storage  
 class BaseModel:
+    print('Base Model class started')
     """
     Base model class that defines common attributes/methods for other classes.
 
@@ -19,8 +19,12 @@ class BaseModel:
         """
         if kwargs:
             for key, value in kwargs.items():
+                if key in ['created_at','updated_at'] and isinstance(key,str):
+                    value = datetime.fromisoformat(value) 
+                    
                 if key != '__class__':
                     setattr(self, key, value)
+                    
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -40,7 +44,8 @@ class BaseModel:
         Update the updated_at attribute with the current datetime.
         """
         self.updated_at = datetime.now()
-        storage.save()
+        
+    
 
     def to_dict(self):
         """
@@ -54,3 +59,12 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
+
+    
+print('Base Model class ended')
+from models.engine.file_storage import FileStorage
+print('File Storage class imported ')
+
+
+storage = FileStorage()
+print(storage)
