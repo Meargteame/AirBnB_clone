@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-import json
-from  models.base_model import BaseModel
+# file_storage.py
 
+import json
+print('starting of file storage')
 class FileStorage:
-    
-    CLASSES = {'BaseModel': BaseModel}  # Map class names to their corresponding classes
     __file_path = 'data.json'
     __objects = {}
 
@@ -25,15 +24,20 @@ class FileStorage:
             
 
     def reload(self):
+        from  models.base_model import BaseModel
         
-            with open(self.__file_path, 'r') as file:
-                loaded_data = json.load(file)
+        CLASSES = {'BaseModel': BaseModel} 
+        
+            
+        with open(self.__file_path, 'r') as file:
+                    loaded_data = json.load(file)
 
-                for key, value in loaded_data.items():
-                    class_name = value['__class__']
+                    for key, value in loaded_data.items():
+                        class_name = value['__class__']
 
-                    if class_name in self.CLASSES:
-                        instance = self.CLASSES[class_name](**value)
-                        self.__objects[key] = instance
+                        if class_name in self.CLASSES:
+                            instance = self.CLASSES[class_name](**value)
+                            self.__objects[key] = instance
                     
 
+print('ending  of file storage')

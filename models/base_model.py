@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+# base_model.py
+print('starting of the base model class ')
 from uuid import uuid4
 from datetime import datetime
-# from . import storage  
+from models.engine.file_storage import FileStorage
+
 class BaseModel:
     print('Base Model class started')
     """
@@ -59,12 +62,3 @@ class BaseModel:
         obj_dict['created_at'] = self.created_at.isoformat()
         obj_dict['updated_at'] = self.updated_at.isoformat()
         return obj_dict
-
-    
-print('Base Model class ended')
-from models.engine.file_storage import FileStorage
-print('File Storage class imported ')
-
-
-storage = FileStorage()
-print(storage)
