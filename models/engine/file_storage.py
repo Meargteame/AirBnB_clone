@@ -6,8 +6,6 @@ FileStorage module for managing the storage of BaseModel instances in JSON forma
 from models.base_model import BaseModel
 import json
 
-print('starting of file storage')
-
 class FileStorage:
     """
     FileStorage class that serializes instances to a JSON file and deserializes JSON file to instances.
