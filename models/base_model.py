@@ -1,30 +1,35 @@
 #!/usr/bin/env python3
-# base_model.py
+"""
+BaseModel module for defining a common base class for other models.
+"""
+
 from uuid import uuid4
 from datetime import datetime
 
-class BaseModel():
+class BaseModel:
     """
     Base model class that defines common attributes/methods for other classes.
 
     Attributes:
         id (str): Unique identifier for the instance.
-        created_at (str): Timestamp when the instance was created.
-        updated_at (str): Timestamp when the instance was last updated.
+        created_at (datetime): Timestamp when the instance was created.
+        updated_at (datetime): Timestamp when the instance was last updated.
     """
 
     def __init__(self, **kwargs):
         """
         Initialize a new instance of BaseModel.
+
+        Args:
+            **kwargs: Key-value pairs of attributes to set on the instance. If empty, a new instance
+                      with a unique ID and current timestamps for creation and update is created.
         """
         if kwargs:
             for key, value in kwargs.items():
-                if key in ['created_at','updated_at'] and isinstance(key,str):
-                    value = datetime.fromisoformat(value) 
-                    
+                if key in ['created_at', 'updated_at'] and isinstance(value, str):
+                    value = datetime.fromisoformat(value)
                 if key != '__class__':
                     setattr(self, key, value)
-                    
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -44,8 +49,6 @@ class BaseModel():
         Update the updated_at attribute with the current datetime.
         """
         self.updated_at = datetime.now()
-        
-    
 
     def to_dict(self):
         """
