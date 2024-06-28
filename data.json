@@ -88,5 +88,17 @@
         "created_at": "2024-06-28T13:59:08.199988",
         "updated_at": "2024-06-28T13:59:08.199988",
         "__class__": "BaseModel"
+    },
+    "BaseModel.b62f42bc-a732-4dfe-8d32-d6d641145170": {
+        "id": "b62f42bc-a732-4dfe-8d32-d6d641145170",
+        "created_at": "2024-06-28T14:24:06.021906",
+        "updated_at": "2024-06-28T14:24:06.021906",
+        "__class__": "BaseModel"
+    },
+    "BaseModel.c485943f-3e4b-4b27-9385-61abdc6e69b2": {
+        "id": "c485943f-3e4b-4b27-9385-61abdc6e69b2",
+        "created_at": "2024-06-28T14:28:29.936068",
+        "updated_at": "2024-06-28T14:28:29.936068",
+        "__class__": "BaseModel"
     }
 }

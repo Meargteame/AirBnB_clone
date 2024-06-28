@@ -120,6 +120,58 @@ class HBNBCommand(cmd.Cmd):
             instances = [str(instance) for instance in storage.all().values()]
         
         print(instances)
+        
+    def do_update(self, arg):
+        """Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file)."""
+        args = arg.split()
+        if len(args) < 1:
+            print('** class name missing **')
+            return
+        if len(args) < 2:
+            print('** instance id missing **')
+            return
+        if len(args) < 3:
+            print('** attribute name missing **')
+            return
+        if len(args) < 4:
+            print('** value missing **')
+            return
+
+        class_name, instance_id, attr_name, attr_value = args[0], args[1], args[2], args[3]
+
+        try:
+            cls = globals()[class_name]
+            if not issubclass(cls, BaseModel):
+                raise KeyError
+        except KeyError:
+            print("** class doesn't exist **")
+            return
+
+        key = f"{class_name}.{instance_id}"
+        instance = storage.all().get(key)
+        if instance is None:
+            print("** no instance found **")
+            return
+
+        # Cast attribute value to the correct type
+        if hasattr(instance, attr_name):
+            attr_type = type(getattr(instance, attr_name))
+            try:
+                if attr_type == int:
+                    attr_value = int(attr_value)
+                elif attr_type == float:
+                    attr_value = float(attr_value)
+                else:
+                    attr_value = str(attr_value)
+            except ValueError:
+                print("** value type error **")
+                return
+
+            setattr(instance, attr_name, attr_value)
+            instance.save()
+            print(f"Instance {key} updated with {attr_name}={attr_value}")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+    
