@@ -45,6 +45,29 @@ class HBNBCommand(cmd.Cmd):
          new_instance = cls()
          new_instance.save()
          print(new_instance.id)
-
+    def do_show(self, arg):
+            """Show an instance based on the class name and id."""
+            args = arg.split()
+            if (args) == 0:
+                print('** class name missing **')
+            if (args) == 1:
+                print('** class name missing **')
+                
+            class_name ,instance_id = args[0],args[1]
+            
+            try:
+                cls = globals()[class_name]
+                if not issubclass(cls,BaseModel):
+                    raise KeyError
+            
+            except KeyError:
+                print("** class doesn't exist ** ")
+                return 
+            key = f"{class_name}.{instance_id}"
+            instance = storage.all().get(key)
+            if instance is None:
+                print("** no instance found **")
+            else:
+                print(instance)
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
