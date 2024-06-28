@@ -1,21 +1,25 @@
-from models import storage
-from models.base_model import BaseModel
-
-
 import cmd 
-
 class HBNBCommand(cmd.Cmd):
-    prompt =' (hbnb) '
-    
+      prompt ='( hbnb )'
+      def do_quite(self,line):
+            """ 
+            
+            """
+            return True 
+      def do_EOF(self,line):
+            """
+            
+            """ 
+            return True 
       
-    def do_quit():
-          pass 
-    def do_EOF():
-          pass 
-    def do_help():
-          pass
-      
-      
-      
+      # override the default empty line 
+      def emptyline(self):
+            """
+            
+            """ 
+            pass 
+
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+      HBNBCommand().cmdloop()
+      
+      
