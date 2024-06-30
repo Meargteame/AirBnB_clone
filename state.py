@@ -9,7 +9,6 @@ class State(BaseModel):
     """
     State class that inherits from BaseModel.
     Attributes:
-        name (str): The user's email address.
+        name (str): The name of the state.
     """
-
     name = ""

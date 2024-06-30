@@ -1,15 +1,14 @@
 #!/usr/bin/python3
 """
-This module contains the User class which inherits from BaseModel.
+This module contains the Amenity class which inherits from BaseModel.
 """
 
 from models.base_model import BaseModel
 
 class Amenity(BaseModel):
     """
-    State class that inherits from BaseModel.
+    Amenity class that inherits from BaseModel.
     Attributes:
-        name (str): The user's email address.
+        name (str): The name of the amenity.
     """
     name = ""
-    
