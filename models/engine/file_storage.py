@@ -4,6 +4,7 @@ FileStorage module for managing the storage of BaseModel instances in JSON forma
 """
 
 from models.base_model import BaseModel
+from models.user import User  # Import User class
 import json
 
 class FileStorage:
@@ -16,7 +17,7 @@ class FileStorage:
         __objects (dict): A dictionary to store all objects by <class name>.id.
     """
     
-    CLASSES = {'BaseModel': BaseModel}
+    CLASSES = {'BaseModel': BaseModel, 'User': User}
     __file_path = 'data.json'
     __objects = {}
 
@@ -64,3 +65,7 @@ class FileStorage:
                         self.__objects[key] = instance
         except FileNotFoundError:
             pass
+
+# Create an instance of FileStorage
+storage = FileStorage()
+storage.reload()
