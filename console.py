@@ -8,6 +8,11 @@ import cmd
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place  # Import Place class
+from models.state import State  # Import State class
+from models.city import City  # Import City class
+from models.amenity import Amenity  # Import Amenity class
+from models.review import Review  # Import Review class
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -35,20 +40,18 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """
-        Create a new instance of BaseModel, save it (to the JSON file)
-        and print the id.
+        Create a new instance of a class, save it (to the JSON file), and print the id.
         """
         if not arg:
             print('** class name missing **')
             return
-        try:
-            cls = globals()[arg]
-            if not issubclass(cls, BaseModel):
-                raise KeyError
-        except KeyError:
+
+        class_name = arg.split()[0]
+        if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
             print("** class doesn't exist **")
             return
 
+        cls = globals()[class_name]
         new_instance = cls()
         new_instance.save()
         print(new_instance.id)
@@ -67,13 +70,10 @@ class HBNBCommand(cmd.Cmd):
 
         class_name, instance_id = args[0], args[1]
 
-        try:
-            cls = globals()[class_name]
-            if not issubclass(cls, BaseModel):
-                raise KeyError
-        except KeyError:
+        if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
             print("** class doesn't exist **")
             return
+
         key = f"{class_name}.{instance_id}"
         instance = storage.all().get(key)
         if instance is None:
@@ -95,11 +95,7 @@ class HBNBCommand(cmd.Cmd):
 
         class_name, instance_id = args[0], args[1]
 
-        try:
-            cls = globals()[class_name]
-            if not issubclass(cls, BaseModel):
-                raise KeyError
-        except KeyError:
+        if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
             print("** class doesn't exist **")
             return
 
@@ -120,11 +116,7 @@ class HBNBCommand(cmd.Cmd):
         instances = []
         if len(args) > 0:
             class_name = args[0]
-            try:
-                cls = globals()[class_name]
-                if not issubclass(cls, BaseModel):
-                    raise KeyError
-            except KeyError:
+            if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
                 print("** class doesn't exist **")
                 return
 
@@ -140,8 +132,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, arg):
         """
-        Updates an instance based on the class name and id by adding or updating
-        attribute (save the change into the JSON file).
+        Update an instance based on the class name and id by adding or updating
+        an attribute (and save the change into the JSON file).
         """
         args = arg.split()
         if len(args) < 1:
@@ -159,11 +151,7 @@ class HBNBCommand(cmd.Cmd):
 
         class_name, instance_id, attr_name, attr_value = args[0], args[1], args[2], args[3]
 
-        try:
-            cls = globals()[class_name]
-            if not issubclass(cls, BaseModel):
-                raise KeyError
-        except KeyError:
+        if class_name not in ["BaseModel", "User", "Place", "State", "City", "Amenity", "Review"]:
             print("** class doesn't exist **")
             return
 

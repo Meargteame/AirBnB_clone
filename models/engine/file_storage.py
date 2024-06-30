@@ -5,6 +5,11 @@ FileStorage module for managing the storage of BaseModel instances in JSON forma
 
 from models.base_model import BaseModel
 from models.user import User  # Import User class
+from models.place import Place  # Import Place class
+from models.state import State  # Import State class
+from models.city import City  # Import City class
+from models.amenity import Amenity  # Import Amenity class
+from models.review import Review  # Import Review class
 import json
 
 class FileStorage:
@@ -17,18 +22,32 @@ class FileStorage:
         __objects (dict): A dictionary to store all objects by <class name>.id.
     """
     
-    CLASSES = {'BaseModel': BaseModel, 'User': User}
+    CLASSES = {
+        'BaseModel': BaseModel, 
+        'User': User,
+        'Place': Place,  # Added Place class
+        'State': State,  # Added State class
+        'City': City,    # Added City class
+        'Amenity': Amenity,  # Added Amenity class
+        'Review': Review  # Added Review class
+    }
     __file_path = 'data.json'
     __objects = {}
 
-    def all(self):
+    def all(self, cls=None):
         """
-        Returns the dictionary __objects.
+        Returns a dictionary of all objects or objects of a specific class.
+        
+        Args:
+            cls (type, optional): The class to filter objects by. If None, returns all objects.
 
         Returns:
-            dict: The dictionary containing all stored objects.
+            dict: The dictionary containing all stored objects or objects of the specified class.
         """
-        return self.__objects
+        if cls is None:
+            return self.__objects
+        cls_name = cls.__name__
+        return {k: v for k, v in self.__objects.items() if isinstance(v, cls)}
 
     def new(self, obj):
         """
