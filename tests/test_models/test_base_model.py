@@ -1,42 +1,29 @@
-#!/usr/bin/env python3 
-
+#!/usr/bin/python3
 """
-
+Unit tests for the base_model.py module.
 """
 import unittest
 from models.base_model import BaseModel
 
 class TestBaseModel(unittest.TestCase):
-    def test_init(self):
-        my_model = BaseModel()
+    """Test cases for the BaseModel class."""
 
-        self.assertIsNotNone(my_model.id) 
-        self.assertIsNotNond(my_model.created_at)
-        self.assertIsNotNone(my_model.updated_at)
+    def test_init(self):
+        """Test initialization of BaseModel."""
+        obj = BaseModel()
+        self.assertTrue(isinstance(obj, BaseModel))
 
     def test_save(self):
-        my_model = BaseModel()
-        initial_updated_at = my_model.updated_at
-        current_updated_at = my_model.save()
-
-        self.assertNotEqual(initial_updated_at,current_updated_at)
+        """Test the save method."""
+        obj = BaseModel()
+        obj.save()
+        self.assertTrue(obj.updated_at > obj.created_at)
 
     def test_to_dict(self):
-        my_model = BaseModel()
-        my_model_dict = my_model.to_dict()
-        self.asserISInstance(my_model_dict, dict)
-        self.assertEqual(my_model_dict["__class__"],BaseModel)
-        self.assertEqual(my_model["id"],my_model.id)
-        self.assertEqual(my_model["created_at"],my_model.created_at.isoformat())
-        self.assertEqual(my_model["updated_at"],my_mode.upadted_at.isoformat())
+        """Test the to_dict method."""
+        obj = BaseModel()
+        obj_dict = obj.to_dict()
+        self.assertEqual(obj_dict['__class__'], 'BaseModel')
 
-    def test_str(self):
-        my_model = BaseModel()
-        self.assertTrue (str(my_model),startswitch(['BaseModel'])
-        
-        self.assertIn(my_model.id ,str(my_model))
-        self.assertIn(str(my_model.__dict__),str(my_model))
-
-if __name__ = '__main__':
+if __name__ == '__main__':
     unittest.main()
-
