@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    article {
+        width: 100%; /* Example adjustment for smaller screens */
+    }
+
+    .last-article {
+        /* Additional rules for smaller screens */
+    }
+}

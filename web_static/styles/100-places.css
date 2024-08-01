@@ -1,0 +1,41 @@
+.amenities{
+    /*margin-top: 40px;*/
+    list-style: none;
+}
+
+.amenities h2{
+    font-size: 16px;
+    border-bottom: #dddddd 1px solid;
+}
+
+.ame {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.reviews{
+    font-size: 16px;
+    margin-top: 40px;
+    overflow: hidden;
+}
+.reviews h2{
+    font-size: 16px;
+    border-bottom: #dddddd 1px solid;
+}
+.reviews ul li{
+    list-style: none;
+}
+.reviews ul li h3{
+    font-width: bolder;
+    font-size: 14px;
+}
+.reviews ul li p{
+    font-size: 12px;
+}
+
+article{
+    box-sizing: border-box;
+
+}

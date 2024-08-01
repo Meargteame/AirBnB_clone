@@ -1,0 +1,27 @@
+.filters{
+    display: flex;
+    justify-content: space-evenly;
+    /*cursor: pointer;*/
+}
+.locations{
+    height: 100%;
+    width: 25%;
+    border-right: 1px solid #dddddd;
+    cursor: pointer;
+}
+.amenities{
+    height: 100%;
+    width: 25%;
+    cursor: pointer;
+}
+
+.fw{
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.locations h4 , .amenities h4{
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 0;
+}

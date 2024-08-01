@@ -1,0 +1,41 @@
+.popover{
+    margin-top: 0;
+    background-color: #fafafa;
+    list-style: none;
+    width: 100%;
+    margin-right: 25px;
+    margin-top: 0;
+    border: 1px solid #dddddd;
+}
+
+ul li{
+    list-style: none;
+}
+button{
+    cursor: pointer;
+}
+.popover ul{
+    display: block;
+    padding: 15px 20px;
+}
+
+.popover .content{
+    display: none;
+}
+
+
+.locations:hover {
+    .content{
+        display: block;
+        color: black
+    }
+
+}
+
+.amenities:hover {
+    .content{
+        display: block;
+        color: black
+    }
+
+}
