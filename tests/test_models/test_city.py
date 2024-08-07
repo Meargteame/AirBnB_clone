@@ -1,23 +1,24 @@
 #!/usr/bin/python3
-"""
-Unit tests for the city.py module.
-"""
-import unittest
+""" """
+from tests.test_models.test_base_model import test_basemodel
 from models.city import City
 
-class TestCity(unittest.TestCase):
-    """Test cases for the City class."""
 
-    def test_init(self):
-        """Test initialization of City."""
-        city = City()
-        self.assertTrue(isinstance(city, City))
+class test_City(test_basemodel):
+    """ """
 
-    def test_city_attributes(self):
-        """Test City class attributes."""
-        city = City()
-        self.assertTrue(hasattr(city, 'state_id'))
-        self.assertTrue(hasattr(city, 'name'))
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = "City"
+        self.value = City
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_state_id(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.state_id), str)
+
+    def test_name(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.name), str)

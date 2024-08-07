@@ -1,22 +1,19 @@
 #!/usr/bin/python3
-"""
-Unit tests for the state.py module.
-"""
-import unittest
+""" """
+from tests.test_models.test_base_model import test_basemodel
 from models.state import State
 
-class TestState(unittest.TestCase):
-    """Test cases for the State class."""
 
-    def test_init(self):
-        """Test initialization of State."""
-        state = State()
-        self.assertTrue(isinstance(state, State))
+class test_state(test_basemodel):
+    """ """
 
-    def test_state_attributes(self):
-        """Test State class attributes."""
-        state = State()
-        self.assertTrue(hasattr(state, 'name'))
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = "State"
+        self.value = State
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_name3(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.name), str)
