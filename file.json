@@ -57,5 +57,23 @@
     "updated_at": "2024-08-08T21:28:23.870641",
     "name": "abebe",
     "__class__": "User"
+  },
+  "State.da034ec0-329b-48e0-b9f7-4746007ae0c3": {
+    "id": "da034ec0-329b-48e0-b9f7-4746007ae0c3",
+    "created_at": "2024-08-08T21:44:26.688233",
+    "updated_at": "2024-08-08T21:44:26.690910",
+    "__class__": "State"
+  },
+  "State.5fa2f4ad-20cb-43e7-b1ef-c2ce2d58ef0b": {
+    "id": "5fa2f4ad-20cb-43e7-b1ef-c2ce2d58ef0b",
+    "created_at": "2024-08-08T21:44:35.365246",
+    "updated_at": "2024-08-08T21:44:35.365246",
+    "__class__": "State"
+  },
+  "Place.9751ab10-e78f-42bf-8f0d-b7caba623492": {
+    "id": "9751ab10-e78f-42bf-8f0d-b7caba623492",
+    "created_at": "2024-08-08T21:45:57.151843",
+    "updated_at": "2024-08-08T21:45:57.151843",
+    "__class__": "Place"
   }
 }
