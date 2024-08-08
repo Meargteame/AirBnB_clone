@@ -144,12 +144,18 @@ class HBNBCommand(cmd.Cmd):
                     key,value = arg_item.split()
                     if '_' in value:
                         value = value.replace('_',' ')
-                        if value.startswith('"') and value.endswith('"'):
-                             value = value.replace('\\"', '"')
-                             value = value.replace('\\', '')
+                    if '/' in value:
+                        value = value.replace('/','')
+                    if '"' in value:
+                        value = value.replace('"','')
+                        
+                        print(value) 
+                        
 
-                            # .replace('\\"', '"').replace('_', ' ')
-                             return value
+
+
+                            
+                            
                     print('key',key)
                     print('value',value)
                     setattr(new_instance,key,value)

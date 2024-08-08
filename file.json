@@ -30,5 +30,32 @@
     "name": "\"abebe\"",
     "age": "21",
     "__class__": "User"
+  },
+  "User.42a5ff11-4603-4e92-b28a-d83ba704a1ff": {
+    "id": "42a5ff11-4603-4e92-b28a-d83ba704a1ff",
+    "created_at": "2024-08-08T21:25:07.830539",
+    "updated_at": "2024-08-08T21:25:07.830539",
+    "name": "\"abebe\"",
+    "__class__": "User"
+  },
+  "User.3bf93c3b-40ec-4723-a70a-14a6ff0fd7d1": {
+    "id": "3bf93c3b-40ec-4723-a70a-14a6ff0fd7d1",
+    "created_at": "2024-08-08T21:27:09.980117",
+    "updated_at": "2024-08-08T21:27:09.980117",
+    "__class__": "User"
+  },
+  "User.d6f16168-57af-4af1-8059-233cea106468": {
+    "id": "d6f16168-57af-4af1-8059-233cea106468",
+    "created_at": "2024-08-08T21:27:29.348940",
+    "updated_at": "2024-08-08T21:27:29.348940",
+    "name": " abebe ",
+    "__class__": "User"
+  },
+  "User.0e720789-c17d-4aca-bf11-96c8384d1918": {
+    "id": "0e720789-c17d-4aca-bf11-96c8384d1918",
+    "created_at": "2024-08-08T21:28:23.870641",
+    "updated_at": "2024-08-08T21:28:23.870641",
+    "name": "abebe",
+    "__class__": "User"
   }
 }
