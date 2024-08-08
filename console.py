@@ -118,64 +118,56 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+    def do_create(self, args):
+        """Create an object of any class"""
         arg = args.split()
-        if not arg[0]:
+        
+        if not arg:
             print("** class name missing **")
             return
-        elif arg[0] not in HBNBCommand.classes:
+        
+        class_name = arg[0]
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
         
-        
-        new_instance = HBNBCommand.classes[arg[0]]()
+        new_instance = HBNBCommand.classes[class_name]()
         print(new_instance.id)
+
+        if len(arg) > 1:
+            for arg_item in arg[1:]:
+                if '=' in arg_item:
+                    try:
+                        key, value = arg_item.split('=', 1)  # Split only on the first '='
+                        key = key.strip()
+                        value = value.strip().strip('"')  # Remove surrounding quotes if any
+
+                        # Replace underscores with spaces
+                        value = value.replace('_', ' ')
+
+                        # Convert value based on its format
+                        if '.' in value:
+                            try:
+                                value = float(value)
+                            except ValueError:
+                                print(f"** invalid value for float: {value} **")
+                                continue
+                        else:
+                            try:
+                                value = int(value)
+                            except ValueError:
+                                print(f"** invalid value for int: {value} **")
+                                continue
+
+                        setattr(new_instance, key, value)
+                    except ValueError:
+                        print(f"** invalid format for attribute: {arg_item} **")
+                        continue
 
         storage.save()
 
-        for arg_item in arg:
-            """ Help information for the create method """
 
-            if arg_item != self.classes:
-                """ Help information for the create method """
-
-                if '=' in arg_item:
-                    """ Help information for the create method """
-                        
-                    arg_item = arg_item.replace('=',' ')
-                    key,value = arg_item.split()
-                    if '_' in value:
-                        """ Help information for the create method """
-
-                        value = value.replace('_',' ')
-                    if '/' in value:
-                        """ Help information for the create method """
-
-                        value = value.replace('/','')
-                    if '"' in value:
-                        """ Help information for the create method """
-
-                        value = value.replace('"','')
-                    if '.' in value:
-                        try:
-                            value = float(value)
-                        except ValueError:
-                            print(f"** invalid value for float: {value} **")
-                            continue
-                    else:
-                        try:
-                            value = int(value)
-                        except ValueError:
-                            print(f"** invalid value for int: {value} **")
-                            continue
-                        
-                        print(value) 
-                    """ Help information for the create method """
-                            
-                    print('key',key)
-                    print('value',value)
-                    setattr(new_instance,key,value)
-                    storage.save()
-            return
-
+                
     
     def help_create(self):
         """ Help information for the create method """
