@@ -115,50 +115,43 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """ Overrides the emptyline method of CMD """
         pass
+
     def do_create(self, args):
-    """ Create an object of any class"""
-    arg = args.split()
-    if not arg[0]:
-        print("** class name missing **")
-        return
-    elif arg[0] not in HBNBCommand.classes:
-        print("** class doesn't exist **")
-        return
+        """ Create an object of any class"""
+        arg = args.split()
+        if not arg[0]:
+            print("** class name missing **")
+            return
+        elif arg[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        
+        
+        new_instance = HBNBCommand.classes[arg[0]]()
+        print(new_instance.id)
 
-    new_instance = HBNBCommand.classes[arg[0]]()
-    print(new_instance.id)
+        storage.save()
 
-    # Save the instance to storage before setting attributes
-    storage.save()
+        for arg_item in arg:
+            if arg_item != self.classes:
+                if '=' in arg_item:
+                    arg_item = arg_item.replace('=',' ')
+                    key,value = arg_item.split()
+                    if '_' in value:
+                        value = value.replace('_',' ')
+                    if '/' in value:
+                        value = value.replace('/','')
+                    if '"' in value:
+                        value = value.replace('"','')
+                        
+                        print(value) 
+                            
+                    print('key',key)
+                    print('value',value)
+                    setattr(new_instance,key,value)
+                    storage.save()
+            return
 
-    # Process attributes and set them on the instance
-    for arg_item in arg[1:]:
-        if '=' in arg_item:
-            key, value = arg_item.split('=', 1)
-            key = key.strip()
-            value = value.strip()
-
-            # Clean up special characters
-            if '_' in value:
-                value = value.replace('_', ' ')
-            if '/' in value:
-                value = value.replace('/', '')
-            if '"' in value:
-                value = value.replace('"', '')
-
-            # Print cleaned value for debugging
-            print('key:', key)
-            print('value:', value)
-            
-            setattr(new_instance, key, value)
     
-    # Save the instance again after setting attributes
-    storage.save()
-
-
-
-
-
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
