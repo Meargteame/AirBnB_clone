@@ -154,15 +154,27 @@ class HBNBCommand(cmd.Cmd):
                         """ Help information for the create method """
 
                         value = value.replace('"','')
+                    if '.' in value:
+                        try:
+                            value = float(value)
+                        except ValueError:
+                            print(f"** invalid value for float: {value} **")
+                            continue
+                    else:
+                        try:
+                            value = int(value)
+                        except ValueError:
+                            print(f"** invalid value for int: {value} **")
+                            continue
                         
                         print(value) 
-                        """ Help information for the create method """
+                    """ Help information for the create method """
                             
                     print('key',key)
                     print('value',value)
                     setattr(new_instance,key,value)
-        storage.save()
-            
+                    storage.save()
+            return
 
     
     def help_create(self):
