@@ -116,6 +116,10 @@ class HBNBCommand(cmd.Cmd):
         """ Overrides the emptyline method of CMD """
         pass
 
+
+
+
+
     def do_create(self, args):
         """ Create an object of any class"""
         arg = args.split()
@@ -124,6 +128,8 @@ class HBNBCommand(cmd.Cmd):
             return
         elif arg[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
+            return
+
         
         
         new_instance = HBNBCommand.classes[arg[0]]()
@@ -132,41 +138,50 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
         for arg_item in arg:
-            """ Help information for the create method """
-
             if arg_item != self.classes:
-                """ Help information for the create method """
-
                 if '=' in arg_item:
-                    """ Help information for the create method """
-                        
                     arg_item = arg_item.replace('=',' ')
                     key,value = arg_item.split()
                     if '_' in value:
-                        """ Help information for the create method """
-
                         value = value.replace('_',' ')
                     if '/' in value:
-                        """ Help information for the create method """
-
                         value = value.replace('/','')
                     if '"' in value:
-                        """ Help information for the create method """
-
                         value = value.replace('"','')
                         
                         print(value) 
-                            
-                            
+                        
+
+
+
                             
                             
                     print('key',key)
                     print('value',value)
                     setattr(new_instance,key,value)
                     storage.save()
-            return
 
-    
+
+
+        # new_instance = HBNBCommand.classes[args]()
+        # print(new_instance.id)
+        # storage.save()
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # accept the parameters as one value
+
+        
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")

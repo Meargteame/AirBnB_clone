@@ -81,5 +81,63 @@
     "created_at": "2024-08-08T21:57:48.244528",
     "updated_at": "2024-08-08T21:57:48.245043",
     "__class__": "State"
+  },
+  "State.5d98a193-27f2-4c2e-a1c1-afd056b1830c": {
+    "id": "5d98a193-27f2-4c2e-a1c1-afd056b1830c",
+    "created_at": "2024-08-08T22:05:06.408369",
+    "updated_at": "2024-08-08T22:05:06.408382",
+    "__class__": "State"
+  },
+  "BaseModel.a5f6e58a-6408-44ef-b882-c735e52a6296": {
+    "id": "a5f6e58a-6408-44ef-b882-c735e52a6296",
+    "created_at": "2024-08-08T22:06:49.467764",
+    "updated_at": "2024-08-08T22:06:49.467764",
+    "__class__": "BaseModel"
+  },
+  "User.518d159e-e848-431c-b01d-b76c867fbe16": {
+    "id": "518d159e-e848-431c-b01d-b76c867fbe16",
+    "created_at": "2024-08-08T22:06:57.022645",
+    "updated_at": "2024-08-08T22:06:57.022645",
+    "__class__": "User"
+  },
+  "State.050dfcb8-efc0-4835-a2bb-7548707660b7": {
+    "id": "050dfcb8-efc0-4835-a2bb-7548707660b7",
+    "created_at": "2024-08-08T22:07:00.394341",
+    "updated_at": "2024-08-08T22:07:00.394341",
+    "__class__": "State"
+  },
+  "User.b7e23e4c-6412-441b-a877-5c18a68e923d": {
+    "id": "b7e23e4c-6412-441b-a877-5c18a68e923d",
+    "created_at": "2024-08-08T22:07:13.177596",
+    "updated_at": "2024-08-08T22:07:13.177596",
+    "__class__": "User"
+  },
+  "User.428efe69-3ba8-4e20-9953-a709aca60b58": {
+    "id": "428efe69-3ba8-4e20-9953-a709aca60b58",
+    "created_at": "2024-08-08T22:08:10.143392",
+    "updated_at": "2024-08-08T22:08:10.143392",
+    "name": " abebe ",
+    "__class__": "User"
+  },
+  "State.4aacfc1d-ff19-4671-816b-da9b66d9d74b": {
+    "id": "4aacfc1d-ff19-4671-816b-da9b66d9d74b",
+    "created_at": "2024-08-08T22:08:31.689193",
+    "updated_at": "2024-08-08T22:08:31.689193",
+    "state_name": " Arizona?",
+    "__class__": "State"
+  },
+  "State.96dc0a91-25a5-457b-a72f-250b59ab0f59": {
+    "id": "96dc0a91-25a5-457b-a72f-250b59ab0f59",
+    "created_at": "2024-08-08T22:09:06.892502",
+    "updated_at": "2024-08-08T22:09:06.892502",
+    "name": "California",
+    "__class__": "State"
+  },
+  "State.6a099d55-d04e-4019-8bed-ff16d46265f1": {
+    "id": "6a099d55-d04e-4019-8bed-ff16d46265f1",
+    "created_at": "2024-08-08T22:09:12.532780",
+    "updated_at": "2024-08-08T22:09:12.532780",
+    "name": "Arizona",
+    "__class__": "State"
   }
 }
