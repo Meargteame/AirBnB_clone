@@ -24,14 +24,8 @@ class HBNBCommand(cmd.Cmd):
         'State': State, 'City': City, 'Amenity': Amenity,
         'Review': Review
     }
-    
+
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
-    
-    types = {
-        'number_rooms': int, 'number_bathrooms': int,
-        'max_guest': int, 'price_by_night': int,
-        'latitude': float, 'longitude': float
-    }
 
     def preloop(self):
         """Print prompt if in non-interactive mode."""
@@ -48,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
             str: Reformatted command line.
         """
         _cmd = _cls = _id = _args = ''
-        
+
         if not ('.' in line and '(' in line and ')' in line):
             return line
 
@@ -58,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
             _cmd = pline[pline.find('.') + 1:pline.find('(')]
             if _cmd not in HBNBCommand.dot_cmds:
                 raise ValueError("Invalid command")
-            
+
             pline = pline[pline.find('(') + 1:pline.find(')')]
             if pline:
                 pline = pline.partition(', ')
@@ -72,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
             line = ' '.join([_cmd, _cls, _id, _args])
         except Exception:
             pass
-        
+
         return line
 
     def postcmd(self, stop, line):
@@ -128,21 +122,32 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
         storage.save()
 
-        for arg_item in arg:
-            if arg_item != self.classes:
-                if '=' in arg_item:
-                    arg_item = arg_item.replace('=', ' ')
-                    key, value = arg_item.split()
-                    value = value.replace('_', ' ').replace('/', '').replace('"', '')
-                    print(f'key: {key}')
-                    print(f'value: {value}')
-                    setattr(new_instance, key, value)
-                    storage.save()
+        for arg_item in arg[1:]:
+            if '=' in arg_item:
+                key, value = arg_item.split('=')
+                key = key.strip()
+                value = value.strip().replace('_', ' ').replace('/', '').replace('"', '')
+
+                if '.' in value:
+                    try:
+                        value = float(value)
+                    except ValueError:
+                        print(f"Invalid float value: {value}")
+                        continue
+                else:
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        print(f"Invalid integer value: {value}")
+                        continue
+
+                setattr(new_instance, key, value)
+                storage.save()
 
     def help_create(self):
         """Prints help information for the create command."""
         print("Creates a class of any type")
-        print("[Usage]: create <className>\n")
+        print("[Usage]: create <className> [<attribute>=<value> ...]\n")
 
     def do_show(self, args):
         """Show an individual object.
@@ -243,7 +248,7 @@ class HBNBCommand(cmd.Cmd):
     def help_all(self):
         """Prints help information for the all command."""
         print("Shows all objects, or all of a class")
-        print("[Usage]: all <className>\n")
+        print("[Usage]: all [<className>]\n")
 
     def do_count(self, args):
         """Count current number of class instances.
@@ -259,7 +264,8 @@ class HBNBCommand(cmd.Cmd):
 
     def help_count(self):
         """Prints help information for the count command."""
-        print("Usage: count <class_name>")
+        print("Counts the number of instances of a class")
+        print("[Usage]: count <className>\n")
 
     def do_update(self, args):
         """Update an object with new information.
@@ -293,42 +299,29 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-        if '{' in args[2] and '}' in args[2] and isinstance(eval(args[2]), dict):
-            kwargs = eval(args[2])
-            args = [k for k, v in kwargs.items() for _ in (0, 1)]
+        args = args[2].split(' ')
+        if len(args) < 2:
+            print("** attribute name missing **")
+            return
+
+        att_name = args[0]
+        att_val = args[1]
+
+        if '.' in att_val:
+            try:
+                att_val = float(att_val)
+            except ValueError:
+                print(f"Invalid float value: {att_val}")
+                return
         else:
-            args = args[2]
-            if args and args[0] == '\"':
-                second_quote = args.find('\"', 1)
-                att_name = args[1:second_quote]
-                args = args[second_quote + 1:]
-
-            args = args.partition(' ')
-            if not att_name and args[0] != ' ':
-                att_name = args[0]
-            if args[2] and args[2][0] == '\"':
-                att_val = args[2][1:args[2].find('\"', 1)]
-
-            if not att_val and args[2]:
-                att_val = args[2].partition(' ')[0]
-
-            args = [att_name, att_val]
+            try:
+                att_val = int(att_val)
+            except ValueError:
+                print(f"Invalid integer value: {att_val}")
+                return
 
         new_dict = storage.all()[key]
-
-        for i, att_name in enumerate(args):
-            if i % 2 == 0:
-                att_val = args[i + 1]
-                if not att_name:
-                    print("** attribute name missing **")
-                    return
-                if not att_val:
-                    print("** value missing **")
-                    return
-                if att_name in HBNBCommand.types:
-                    att_val = HBNBCommand.types[att_name](att_val)
-                new_dict.__dict__.update({att_name: att_val})
-
+        setattr(new_dict, att_name, att_val)
         new_dict.save()
 
     def help_update(self):
